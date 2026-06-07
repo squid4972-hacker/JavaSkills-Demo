@@ -1,1 +1,1 @@
-This repository demonstrates basic Java skills including but not inclusive: GUI concepts, polymorphism, abstract class, arrays, loops (including enhanced loops), and inheritance.
+This repository demonstrates basic Java skills including but not inclusive: GUI concepts, polymorphism, abstract class, arrays, loops (including enhanced loops), and inheritance. As time goes on and my knowledge expands, I will add fun mental exercises and new concepts learned and programs.
