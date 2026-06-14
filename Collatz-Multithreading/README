@@ -1,0 +1,28 @@
+README - MTCollatz Project
+
+PROBLEMS ENCOUNTERED AND SOLUTIONS
+
+1. Server Connection Timeout Leading to Bug Discovery
+   While testing single-threaded execution (N=1,000,001), the SSH connection 
+   to the school's Linux server timed out after extended runtime. This prompted 
+   investigation into why the program was taking so long to execute.
+
+2. Integer Overflow Issue (Root Cause)
+   Through systematic debugging (testing progressively larger N values: 10,000 → 
+   100,000 → 150,000), I discovered the program would hang above N=100,000.
+   
+   Root Cause: The variable 'int n' in the Collatz sequence calculation was 
+   overflowing when computing 3*n+1 for large numbers, causing n to wrap around 
+   and never reach 1, resulting in infinite loops.
+   
+   Solution: Changed 'int n' to 'long n' in the Collatz computation to handle 
+   larger intermediate values. This resolved the hanging issue completely.
+
+3. Successful Testing
+   After fixing the integer overflow, the program successfully executed for all 
+   thread counts (1, 2, 3, 6) with N=1,000,001.
+
+FINAL RESULTS
+Program successfully computes Collatz stopping times with proper synchronization 
+and lock management for concurrent thread execution.
+
