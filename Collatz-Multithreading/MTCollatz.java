@@ -6,8 +6,22 @@ import java.util.concurrent.locks.ReentrantLock;
  * @version 1.1.1
  * @date 12 June 2026
  * 
+ * MTCollatz - Multi-threaded Collatz Stopping Time Generator
+ * 
  * This class implements the Collatz Conjecture to experiment with the application of thread 
- * synchronization and explore the use of threads in a computational setting.
+ * synchronization and explore the use of threads in a computational setting. 
+ * 
+ * Command-line Arguments:
+ *   N - The maximum number to test (range is 1 to N)
+ *   T - The number of worker threads to create
+ * 
+ * Example: java MTCollatz 1000000 0
+ *   Computes Collatz stopping times for numbers 1-1,000,000 using 8 threads
+ * 
+ * Output:
+ *   Histogram of stopping times (stopping_time, frequency)
+ *   Timing data (N, T, elapsed_time_in_seconds)
+
  */
 import java.time.Instant;
 
