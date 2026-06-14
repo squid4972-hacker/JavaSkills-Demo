@@ -1,4 +1,15 @@
 README - MTCollatz Project
+This program computes Collatz stopping times for a range of numbers using multiple threads for parallel execution.
+Command-line Arguments:
+   N - The maximum number to test (range is 1 to N)
+   T - The number of worker threads to create
+  
+  Example: java MTCollatz 1000000 8
+    Computes Collatz stopping times for numbers 1-1,000,000 using 8 threads
+  
+  Output:
+   Histogram of stopping times (stopping_time, frequency)
+   Timing data (N, T, elapsed_time_in_seconds)
 
 PROBLEMS ENCOUNTERED AND SOLUTIONS
 
