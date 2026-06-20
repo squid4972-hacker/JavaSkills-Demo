@@ -5,7 +5,7 @@
  * @author Enaya S. Laborn
  * @version 1.0
  */
-public class RentalCarTeser {
+public class RentalCarTester {
  
     /* Main method. Creates a RentalCarCompany, adds reservations, prints all rental information, and tests findReservation.
      * @param args command-line arguments (not used)
