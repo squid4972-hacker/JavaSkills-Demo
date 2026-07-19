@@ -29,7 +29,7 @@ javac Receiver.java
 javac Network.java
 ```
 
-**Note**: No compilation errors or warnings should occur.
+**Note**: No compilation errors or warnings should occur (hopefully).
 
 ## Running the Programs
 
