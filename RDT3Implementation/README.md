@@ -24,8 +24,10 @@ This project implements a reliable data transfer protocol (RDT 3.0) using Java a
   
        - java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
 - **Step 4**: Send Test Message
-       - **In Terminal 3, enter message you wish to transmit**
-       - **Then “quit” when prompted**
+- 
+       - In Terminal 3, enter message you wish to transmit
+  
+       - Then “quit” when prompted
 
 ## Key Implementation Details
 
