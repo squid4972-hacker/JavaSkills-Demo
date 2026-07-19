@@ -12,15 +12,15 @@ This project implements a reliable data transfer protocol (RDT 3.0) using Java a
 - **Step 1**: Compile All Files
 - **Step 2**: Open Three Terminals
 - **Step 3**: Start in This Order
-       - Terminal 1:
-       - java Network 60050 0 0 0
-       - Terminal 2:
-       - java Receiver 60051 127.0.0.1 60050
-       - Terminal 3:
-       - java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
+       - **Terminal 1**:
+       - **java Network 60050 0 0 0**
+       - **Terminal 2:**
+       - **java Receiver 60051 127.0.0.1 60050**
+       - **Terminal 3:**
+       - **java Sender 60052 127.0.0.1 60051 127.0.0.1 60050**
 - **Step 4**: Send Test Message
-       - In Terminal 3, enter message you wish to transmit
-       - Then “quit” when prompted
+       - **In Terminal 3, enter message you wish to transmit**
+       - **Then “quit” when prompted**
 
 ## Key Implementation Details
 
