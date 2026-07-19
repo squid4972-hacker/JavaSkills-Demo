@@ -55,26 +55,6 @@ This project implements a reliable data transfer protocol (RDT 3.0) using Java a
 - Corruption detection and retransmission
 - Network simulation with configurable failure rates
 
-## Troubleshooting errors
-
-### "Port already in use" error
-- Change the port number to a different value in 60000-60099 range
-- Wait a minute and try again (OS may not have released port immediately)
-
-### "Connection refused" error
-- Ensure Network program is running before starting Sender/Receiver
-- Verify correct 127.0.0.1 and port in command line arguments
-
-### Sender stuck waiting for ACK
-- Check that Receiver is running
-- Verify Network is forwarding packets (check Network output)
-- Increase timeout tolerance if network is slow
-
-### Messages not assembling correctly
-- Verify receiver output shows segments received in order
-- Check that sender completes all segments (check sender output)
-- Test without loss/delay/corruption first
-
 ## Notes
 - All three programs use UDP and must bind to different ports
 - The Network program routes all packets between Sender and Receiver
