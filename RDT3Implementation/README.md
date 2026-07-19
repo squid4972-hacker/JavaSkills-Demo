@@ -287,8 +287,6 @@ Packets corrupted: 0
 - All programs should be terminated with Ctrl+C
 
 ## Testing on SSH Server
-1. Copy all .java files to the SSH server
-2. Compile: `javac *.java`
-3. Open three SSH terminals (or use screen/tmux)
-4. Run programs as described in Testing section
-5. Ensure ports used are in the 60000-60099 range
+1. Compile: `javac *.java`
+2. Open three SSH terminals (or use screen/tmux)
+3. Run programs as described in Testing section
