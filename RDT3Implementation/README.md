@@ -8,7 +8,7 @@ This project implements a reliable data transfer protocol (RDT 3.0) using Java a
 
 **Note**: No compilation errors or warnings should occur (hopefully).
 
-**How to use me**
+## How to use me ##
 - Step 1: Compile All Files
 - Step 2: Open Three Terminals
 - Step 3: Start in This Order
