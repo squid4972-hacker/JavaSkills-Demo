@@ -4,9 +4,9 @@ This document provides comprehensive test cases to verify the RDT 3.0 implementa
 
 ## Pre-Testing Checklist
 
-- [ ] All .java files compile without errors
+- [ ] All provided .java files compile without errors
 - [ ] No compilation warnings
-- [ ] You have three terminals available
+- [ ] Have three terminals available
 - [ ] Ports 60050-60052 are available on your system
 - [ ] Java is installed and working
 
@@ -16,8 +16,8 @@ For each test below, follow this pattern:
 
 ```
 Terminal 1: java Network 60050 [lossPercent] [delayPercent] [errorPercent]
-Terminal 2: java Receiver 60051
-Terminal 3: java Sender 60052 localhost 60050
+Terminal 2: java Receiver 60051 127.0.0.1 60050
+Terminal 3: java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
 
 Wait for all programs to print their initialization messages.
 Then proceed with test steps.
@@ -32,8 +32,8 @@ Then proceed with test steps.
 **Setup**:
 ```bash
 Terminal 1: java Network 60050 0 0 0
-Terminal 2: java Receiver 60051
-Terminal 3: java Sender 60052 localhost 60050
+Terminal 2: java Receiver 60051 127.0.0.1 60050
+Terminal 3: java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
 ```
 
 **Test Steps**:
@@ -43,12 +43,12 @@ Terminal 3: java Sender 60052 localhost 60050
 4. In Terminal 3, type: `quit`
 
 **Expected Results**:
-- ✓ Sender shows "Segment 1/2 sent" and "ACK received"
-- ✓ Sender shows "Segment 2/2 sent" and "ACK received"
-- ✓ Receiver shows "Segment received" twice
-- ✓ Receiver shows "Sequence number matches expected"
-- ✓ Network shows traffic forwarded successfully
-- ✓ No timeouts or retransmissions
+- Sender shows "Segment 1/2 sent" and "ACK received"
+- Sender shows "Segment 2/2 sent" and "ACK received"
+- Receiver shows "Segment received" twice
+- Receiver shows "Sequence number matches expected"
+- Network shows traffic forwarded successfully
+- No timeouts or retransmissions
 
 **Pass/Fail**: _______
 
@@ -61,8 +61,8 @@ Terminal 3: java Sender 60052 localhost 60050
 **Setup**:
 ```bash
 Terminal 1: java Network 60050 0 0 0
-Terminal 2: java Receiver 60051
-Terminal 3: java Sender 60052 localhost 60050
+Terminal 2: java Receiver 60051 127.0.0.1 60050
+Terminal 3: java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
 ```
 
 **Test Steps**:
@@ -72,11 +72,11 @@ Terminal 3: java Sender 60052 localhost 60050
 4. In Terminal 3, type: `quit`
 
 **Expected Results**:
-- ✓ Message length shown (60 bytes)
-- ✓ Segments needed shown (9 segments for 60 bytes with 7-byte payload)
-- ✓ Each segment sent and ACK received
-- ✓ No duplicate messages
-- ✓ No timeouts
+- Message length shown (60 bytes)
+- Segments needed shown (9 segments for 60 bytes with 7-byte payload)
+- Each segment sent and ACK received
+- No duplicate messages
+- No timeouts
 
 **Pass/Fail**: Fail needed 10 segments
 
@@ -89,8 +89,8 @@ Terminal 3: java Sender 60052 localhost 60050
 **Setup**:
 ```bash
 Terminal 1: java Network 60050 50 0 0
-Terminal 2: java Receiver 60051
-Terminal 3: java Sender 60052 localhost 60050
+Terminal 2: java Receiver 60051 127.0.0.1 60050
+Terminal 3: java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
 ```
 
 **Note**: 50% loss means roughly half the packets will be dropped.
@@ -103,14 +103,14 @@ Terminal 3: java Sender 60052 localhost 60050
 5. In Terminal 3, type: `quit`
 
 **Expected Results**:
-Pass ✓ Network shows "*** PACKET DROPPED ***" message
-Pass ✓ Sender shows "Timeout! Retransmitting"
-Pass ✓ Sender retransmits multiple times
-Pass ✓ Segments eventually succeed
-Pass ✓ Message assembles correctly at receiver
-Pass ✓ No retransmit count exceeds 10
+- Network shows "*** PACKET DROPPED ***" message
+- Sender shows "Timeout! Retransmitting"
+- Sender retransmits multiple times
+- Segments eventually succeed
+- Message assembles correctly at receiver
+- No retransmit count exceeds 10
 
-**Pass/Fail**: Pass!
+**Pass/Fail**: _____
 
 ---
 
@@ -121,8 +121,8 @@ Pass ✓ No retransmit count exceeds 10
 **Setup**:
 ```bash
 Terminal 1: java Network 60050 0 0 30
-Terminal 2: java Receiver 60051
-Terminal 3: java Sender 60052 localhost 60050
+Terminal 2: java Receiver 60051 127.0.0.1 60050
+Terminal 3: java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
 ```
 
 **Note**: 30% corruption rate means roughly 1 in 3 packets will be marked corrupt.
@@ -135,13 +135,13 @@ Terminal 3: java Sender 60052 localhost 60050
 5. In Terminal 3, type: `quit`
 
 **Expected Results**:
-- ✓ Network shows "*** PACKET CORRUPTED ***" message
-- ✓ Receiver shows "Segment is corrupt, discarding"
-- ✓ Sender times out and retransmits
-- ✓ Retransmitted packets reach the receiver successfully
-- ✓ Message assembles with only clean data
+- Network shows "*** PACKET CORRUPTED ***" message
+- Receiver shows "Segment is corrupt, discarding"
+- Sender times out and retransmits
+- Retransmitted packets reach the receiver successfully
+- Message assembles with only clean data
 
-**Pass/Fail**: All Pass!!!!
+**Pass/Fail**: ____
 
 ---
 
@@ -152,8 +152,8 @@ Terminal 3: java Sender 60052 localhost 60050
 **Setup**:
 ```bash
 Terminal 1: java Network 60050 0 30 0
-Terminal 2: java Receiver 60051
-Terminal 3: java Sender 60052 localhost 60050
+Terminal 2: java Receiver 60051 127.0.0.1 60050
+Terminal 3: java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
 ```
 
 **Note**: 30% delay means roughly 1 in 3 packets will be delayed 1.5-2 seconds.
@@ -166,14 +166,14 @@ Terminal 3: java Sender 60052 localhost 60050
 5. In Terminal 3, type: `quit`
 
 **Expected Results**:
-- ✓ Network shows "*** PACKET DELAYED ***" message
-- ✓ Network shows "sent delayed packet" after delay
-- ✓ Sender receives delayed ACKs without timeout
-- ✓ 3-second timeout is sufficient for 1.5-2 second delays
-- ✓ Message transmits successfully
-- ✓ No unnecessary retransmissions
+- Network shows "*** PACKET DELAYED ***" message
+- Network shows "sent delayed packet" after delay
+- Sender receives delayed ACKs without timeout
+- 3-second timeout is sufficient for 1.5-2 second delays
+- Message transmits successfully
+- No unnecessary retransmissions
 
-**Pass/Fail**: Pass
+**Pass/Fail**: ____
 
 ---
 
@@ -184,8 +184,8 @@ Terminal 3: java Sender 60052 localhost 60050
 **Setup**:
 ```bash
 Terminal 1: java Network 60050 0 50 0
-Terminal 2: java Receiver 60051
-Terminal 3: java Sender 60052 localhost 60050
+Terminal 2: java Receiver 60051 127.0.0.1 60050
+Terminal 3: java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
 ```
 
 **Test Steps**:
@@ -196,12 +196,12 @@ Terminal 3: java Sender 60052 localhost 60050
 5. In Terminal 3, type: `quit`
 
 **Expected Results**:
-- ✓ Receiver shows "Duplicate segment (seq=X), expected seq=Y"
-- ✓ Duplicate data is NOT added to message twice
-- ✓ Receiver still sends ACK for duplicate
-- ✓ Message is correct at end (no duplication)
+- Receiver shows "Duplicate segment (seq=X), expected seq=Y"
+- Duplicate data is NOT added to message twice
+- Receiver still sends ACK for duplicate
+- Message is correct at end (no duplication)
 
-**Pass/Fail**: Pass
+**Pass/Fail**: ____
 
 ---
 
@@ -212,8 +212,8 @@ Terminal 3: java Sender 60052 localhost 60050
 **Setup**:
 ```bash
 Terminal 1: java Network 60050 10 15 5
-Terminal 2: java Receiver 60051
-Terminal 3: java Sender 60052 localhost 60050
+Terminal 2: java Receiver 60051 127.0.0.1 60050
+Terminal 3: java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
 ```
 
 **Note**: 10% loss, 15% delay, 5% corruption = realistic network conditions
@@ -226,13 +226,13 @@ Terminal 3: java Sender 60052 localhost 60050
 5. In Terminal 3, type: `quit`
 
 **Expected Results**:
-P ✓ Both messages transmit successfully
-P ✓ Network shows mix of normal, dropped, delayed, and corrupted packets
-P ✓ Sender retransmits as needed
-P ✓ No message corruption at receiver
-P ✓ Statistics show reasonable counts
+- Both messages transmit successfully
+- Network shows mix of normal, dropped, delayed, and corrupted packets
+- Sender retransmits as needed
+- No message corruption at receiver
+- Statistics show reasonable counts
 
-**Pass/Fail**: Pass
+**Pass/Fail**: _____
 
 ---
 
@@ -243,8 +243,8 @@ P ✓ Statistics show reasonable counts
 **Setup**:
 ```bash
 Terminal 1: java Network 60050 5 10 3
-Terminal 2: java Receiver 60051
-Terminal 3: java Sender 60052 localhost 60050
+Terminal 2: java Receiver 60051 127.0.0.1 60050
+Terminal 3: java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
 ```
 
 **Test Steps**:
@@ -255,13 +255,13 @@ Terminal 3: java Sender 60052 localhost 60050
 5. In Terminal 3, type: `quit`
 
 **Expected Results**:
-P ✓ Statistics print after every 2 packets received
-P ✓ Packets received count matches observed packets
-P ✓ Packets sent >= packets received (some may be dropped)
-P ✓ Dropped count + sent count approximately = received count
-P ✓ Statistics format is clear and readable
+- Statistics print after every 2 packets received
+- Packets received count matches observed packets
+- Packets sent >= packets received (some may be dropped)
+- Dropped count + sent count approximately = received count
+- Statistics format is clear and readable
 
-**Pass/Fail**: Pass
+**Pass/Fail**: _____
 
 ---
 
@@ -272,8 +272,8 @@ P ✓ Statistics format is clear and readable
 **Setup**:
 ```bash
 Terminal 1: java Network 60050 0 0 0
-Terminal 2: java Receiver 60051
-Terminal 3: java Sender 60052 localhost 60050
+Terminal 2: java Receiver 60051 127.0.0.1 60050
+Terminal 3: java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
 ```
 
 **Test Steps**:
@@ -283,13 +283,13 @@ Terminal 3: java Sender 60052 localhost 60050
 4. In Terminal 3, type: `quit`
 
 **Expected Results**:
-- ✓ Segment 1 shows seq=0
-- ✓ Segment 2 shows seq=1
-- ✓ Segment 3 shows seq=0
-- ✓ Pattern continues: 0, 1, 0, 1, 0, 1...
-- ✓ ACKs match with corresponding segments
+- Segment 1 shows seq=0
+- Segment 2 shows seq=1
+- Segment 3 shows seq=0
+- Pattern continues: 0, 1, 0, 1, 0, 1...
+- ACKs match with corresponding segments
 
-**Pass/Fail**: Pass
+**Pass/Fail**: _____
 
 ---
 
@@ -300,8 +300,8 @@ Terminal 3: java Sender 60052 localhost 60050
 **Setup**:
 ```bash
 Terminal 1: java Network 60050 20 25 10
-Terminal 2: java Receiver 60051
-Terminal 3: java Sender 60052 localhost 60050
+Terminal 2: java Receiver 60051 127.0.0.1 60050
+Terminal 3: java Sender 60052 127.0.0.1 60051 127.0.0.1 60050
 ```
 
 **Test Steps**:
@@ -312,13 +312,13 @@ Terminal 3: java Sender 60052 localhost 60050
 5. In Terminal 3, type: `quit`
 
 **Expected Results**:
-- ✓ Message received at receiver matches exactly
-- ✓ No extra characters
-- ✓ No missing characters
-- ✓ Correct order
-- ✓ Both test messages identical at receiver
+- Message received at receiver matches exactly
+- No extra characters
+- No missing characters
+- Correct order
+- Both test messages identical at receiver
 
-**Pass/Fail**: Pass
+**Pass/Fail**: ____
 
 ---
 
@@ -337,7 +337,7 @@ Terminal 3: java Sender 60052 localhost 60050
 | 9 | Sequence Numbers | ___ | ___ |
 | 10 | Data Integrity | ___ | ___ |
 
-Total Tests Passed: 10 / 10
+Total Tests Passed: __ / 10
 
 ---
 
