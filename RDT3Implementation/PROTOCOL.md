@@ -77,8 +77,8 @@ Network Header (44 bytes)           Segment (10 bytes)
          ┌──────────────┘        └──────────────┐
          │                                       │
          ↓                                       ↓
-    Retransmit             ┌──────────────────────────┐
-    (up to 10 times)       │  Toggle Sequence Number  │
+    Retransmit              ┌──────────────────────────┐
+    (up to 10 times)        │  Toggle Sequence Number  │
          │                  │  seq = 1 - seq           │
          │                  └──────────────────────────┘
          │                            │
@@ -145,11 +145,11 @@ MAX_RETRIES: 10
                    │  CHECK SEQUENCE NUMBER   │
                    └──────────────────────────┘
                         │        │
-        (seq != expected)│        │ (seq = expected)
+       (seq != expected)│        │ (seq = expected)
                         │        │
          ┌──────────────┘        └──────────────┐
-         │                                       │
-         ↓                                       ↓
+         │                                      │
+         ↓                                      ↓
     DUPLICATE            ┌──────────────────────────┐
     (Ignore data,        │  DELIVER PAYLOAD         │
      Send ACK for        │  Assemble into message   │
@@ -301,26 +301,26 @@ The Network program prints traffic statistics showing:
 ### Scenario: Send "Hello" (5 bytes, 1 segment)
 
 ```
-SENDER                  NETWORK                 RECEIVER
-  │                        │                        │
+SENDER                   NETWORK                 RECEIVER
+  │                         │                        │
   │  SEND SEGMENT (seq=0)   │                        │
   ├───────────────────────>─│                        │
-  │                         │  FORWARD (seq=0)      │
+  │                         │  FORWARD (seq=0)       │
   │                         ├───────────────────────>│
   │                         │                   RECV │
   │                         │              SEND ACK  │
-  │                         │<───────ACK (seq=0)────┤
-  │                    RECV ACK │                    │
-  │<───────────────────────ACK──┤                    │
+  │                         │<───────ACK (seq=0)─────┤
+  │                RECV ACK │                        │
+  │<───────────────────ACK──┤                        │
   │                         │                        │
-  ✓ MESSAGE COMPLETE       │                        │
+    MESSAGE COMPLETE        │                        │
 ```
 
 ### Scenario: Lost Packet (with retransmission)
 
 ```
-SENDER                  NETWORK                 RECEIVER
-  │                        │                        │
+SENDER                   NETWORK                 RECEIVER
+  │                         │                        │
   │  SEND SEGMENT (seq=0)   │                        │
   ├───────────────────────>─│                        │
   │                    DROP │                        │
@@ -329,15 +329,15 @@ SENDER                  NETWORK                 RECEIVER
   │ (TIMEOUT - 3 seconds)   │                        │
   │  RETRANSMIT (seq=0)     │                        │
   ├───────────────────────>─│                        │
-  │                         │  FORWARD (seq=0)      │
+  │                         │  FORWARD (seq=0)       │
   │                         ├───────────────────────>│
   │                         │                   RECV │
   │                         │              SEND ACK  │
-  │                         │<───────ACK (seq=0)────┤
-  │                    RECV ACK │                    │
-  │<───────────────────────ACK──┤                    │
+  │                         │<───────ACK (seq=0)─────┤
+  │                RECV ACK │                        │
+  │<───────────────────ACK──┤                        │
   │                         │                        │
-  ✓ MESSAGE COMPLETE       │                        │
+  MESSAGE COMPLETE          │                        │
 ```
 
 ## Error Handling
@@ -359,10 +359,10 @@ SENDER                  NETWORK                 RECEIVER
 
 ## Protocol Guarantees
 
-✓ **In-Order Delivery**: Receiver assembles segments in correct sequence
-✓ **Reliability**: Sender retransmits lost or corrupted packets
-✓ **Duplicate Elimination**: Receiver discards duplicate segments
-✓ **No Data Loss**: (assuming max 10 retries sufficient)
+**In-Order Delivery**: Receiver assembles segments in correct sequence
+**Reliability**: Sender retransmits lost or corrupted packets
+**Duplicate Elimination**: Receiver discards duplicate segments
+**No Data Loss**: (assuming max 10 retries sufficient)
 
 ## Limitations
 
